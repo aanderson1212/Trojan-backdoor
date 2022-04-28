@@ -145,7 +145,7 @@ namespace TrojanServer
 
 
 
-                TcpListener l = new TcpListener(2000);
+                TcpListener l = new TcpListener(80);
 
                 l.Start();
 
