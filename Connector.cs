@@ -13,7 +13,7 @@ namespace trojart
         {
             TcpClient Connector = new TcpClient();
 
-        GetConnection:
+            GetConnection:
             Console.WriteLine("Enter Server IP: ");
             string IP = Console.ReadLine();
 
