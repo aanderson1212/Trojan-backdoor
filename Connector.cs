@@ -19,7 +19,7 @@ namespace trojart
 
             try
             {
-                Connector.Connect(IP, 2000);
+                Connector.Connect(IP, 443);
                 IsConnected = true;
                 Console.Title = "Client - Online";
                 Writer = Connector.GetStream();
